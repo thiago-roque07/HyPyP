@@ -665,7 +665,7 @@ def plot_3d_heads(ax, vertices, faces):
                 '-', color= 'grey', linewidth=0.3)
 
 
-def viz_2D_topomap_inter (epo1: mne.Epochs, epo2: mne.Epochs, C: np.ndarray, threshold: float=0.95, steps: int=10, lab: bool = False):
+def viz_2D_topomap_inter (epo1: mne.Epochs, epo2: mne.Epochs, C: np.ndarray, threshold: float=0.95, steps: int=10, lab: bool = False, save_path: str = None):
     """
     Visualization of inter-brain connectivity in 2D.
 
@@ -684,6 +684,8 @@ def viz_2D_topomap_inter (epo1: mne.Epochs, epo2: mne.Epochs, C: np.ndarray, thr
             if <3 equivalent to ploting straight lines
         lab: option to plot channel names
             False by default.
+        save_path: str
+            Path to save the figure in SVG format. If None, the figure will not be saved.
 
     Returns:
         Plot head topomap with sensors and 
@@ -702,6 +704,10 @@ def viz_2D_topomap_inter (epo1: mne.Epochs, epo2: mne.Epochs, C: np.ndarray, thr
     # with the strength of connectivity)
     plot_links_2d_inter(epo1, epo2, C=C, threshold=threshold, steps=steps)
     plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, format='svg')
+    
     plt.show()
 
     return (ax)
